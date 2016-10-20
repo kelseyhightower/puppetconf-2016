@@ -35,7 +35,7 @@ spec:
             - name: tls
               mountPath: "/etc/tls"
         - name: lobsters
-          image: "kelseyhightower/lobsters:2.0.0"
+          image: "kelseyhightower/lobsters:2.1.0"
           env:
             - name: DATABASE_URL
               valueFrom:
