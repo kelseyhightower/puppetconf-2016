@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: lobsters
+    secure: "true"
+  name: "lobsters-secure"
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: lobsters
+        secure: "true"
+    spec:
+      containers:
+        - name: nginx
+          image: "nginx:1.11.5"
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/usr/sbin/nginx","-s","quit"]
+          volumeMounts:
+            - name: "nginx-proxy-conf"
+              mountPath: "/etc/nginx/conf.d"
+            - name: "tls-certs"
+              mountPath: "/etc/tls"
+        - name: lobsters
+          image: kelseyhightower/lobsters:2.0.0
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: lobsters
+                  key: database-url
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+      volumes:
+        - name: "tls-certs"
+          secret:
+            secretName: "lobsters.hightowerlabs.com"
+        - name: "nginx-proxy-conf"
+          configMap:
+            name: "nginx-proxy-conf"

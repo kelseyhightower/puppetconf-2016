@@ -1,0 +1,10 @@
+apiVersion: "stable.hightower.com/v1"
+kind: "Certificate"
+metadata:
+  name: "lobsters"
+spec:
+  domain: "lobsters.hightowerlabs.com"
+  email: "kelsey.hightower@gmail.com"
+  provider: "googledns"
+  secret: "hightowerlabs"
+  secretKey: "service-account.json"
