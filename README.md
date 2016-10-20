@@ -1,4 +1,4 @@
-# Puppet Conf 2016: Kubernetes for Sysadmins Demo
+# PuppetConf 2016: Kubernetes for Sysadmins Demo
 
 This tutorial will walk you through the live demo from the Kubernetes for Sysadmins talk at PuppetConf 2016.
 
