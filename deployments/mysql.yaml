@@ -33,10 +33,18 @@ spec:
           ports:
             - name: mysql
               containerPort: 3306
+          resources:
+            requests:
+              cpu: 1
+              memory: 1G
+            limits:
+              cpu: 1
+              memory: 1G
           volumeMounts:
-            - mountPath: /var/lib/mysql
-              name: mysql
+            - name: mysql
+              mountPath: /var/lib/mysql
       volumes:
-        - name: "mysql"
-          persistentVolumeClaim:
-            claimName: mysql
+        - name: mysql
+          gcePersistentDisk:
+            pdName: mysql
+            fsType: ext4

@@ -3,6 +3,7 @@ kind: Service
 metadata:
   labels:
     app: lobsters
+    secure: "true"
   name: lobsters-secure
 spec:
   ports:
@@ -11,4 +12,5 @@ spec:
     targetPort: 443
   selector:
     app: lobsters
+    secure: "true"
   type: LoadBalancer

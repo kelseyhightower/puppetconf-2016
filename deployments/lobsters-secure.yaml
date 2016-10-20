@@ -20,6 +20,13 @@ spec:
             preStop:
               exec:
                 command: ["/usr/sbin/nginx","-s","quit"]
+          resources:
+            requests:
+              cpu: 0.2
+              memory: 100M
+            limits:
+              cpu: 0.2
+              memory: 100M
           volumeMounts:
             - name: "nginx-proxy-conf"
               mountPath: "/etc/nginx/conf.d"
@@ -36,6 +43,13 @@ spec:
           ports:
             - containerPort: 3000
               protocol: TCP
+          resources:
+            requests:
+              cpu: 0.5
+              memory: 200M
+            limits:
+              cpu: 0.5
+              memory: 200M
       volumes:
         - name: "tls-certs"
           secret:

@@ -1,8 +1,6 @@
 #!/bin/bash
 
-kubectl delete deployments mysql lobsters
-kubectl delete services mysql lobsters
+kubectl delete deployments mysql lobsters lobsters-secure kube-cert-manager
+kubectl delete services mysql lobsters lobsters-secure
 kubectl delete jobs lobsters-db-schema-load lobsters-db-seed 
-kubectl delete secrets lobsters
-kubectl delete pv mysql
-kubectl delete pvc mysql
+kubectl delete secrets lobsters lobsters.hightowerlabs.com
