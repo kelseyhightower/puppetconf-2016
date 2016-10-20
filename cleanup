@@ -3,7 +3,7 @@
 kubectl delete deployments mysql lobsters kube-cert-manager
 kubectl delete services mysql
 kubectl delete jobs lobsters-db-schema-load lobsters-db-seed 
-kubectl delete secrets lobsters lobsters.hightowerlabs.com hightowerlabs
+kubectl delete secrets lobsters.hightowerlabs.com
 kubectl delete configmaps nginx
 kubectl delete certificates lobsters
 kubectl delete thirdpartyresources certificate.stable.hightower.com
