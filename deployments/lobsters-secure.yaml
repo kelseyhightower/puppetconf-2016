@@ -3,15 +3,13 @@ kind: Deployment
 metadata:
   labels:
     app: lobsters
-    secure: "true"
-  name: "lobsters-secure"
+  name: lobsters
 spec:
-  replicas: 1
+  replicas: 10
   template:
     metadata:
       labels:
         app: lobsters
-        secure: "true"
     spec:
       containers:
         - name: nginx
@@ -20,6 +18,10 @@ spec:
             preStop:
               exec:
                 command: ["/usr/sbin/nginx","-s","quit"]
+          ports:
+            - name: https
+              containerPort: 443
+              protocol: TCP
           resources:
             requests:
               cpu: 0.2
@@ -28,12 +30,12 @@ spec:
               cpu: 0.2
               memory: 100M
           volumeMounts:
-            - name: "nginx-proxy-conf"
+            - name: nginx
               mountPath: "/etc/nginx/conf.d"
-            - name: "tls-certs"
+            - name: tls
               mountPath: "/etc/tls"
         - name: lobsters
-          image: kelseyhightower/lobsters:2.0.0
+          image: "kelseyhightower/lobsters:2.0.0"
           env:
             - name: DATABASE_URL
               valueFrom:
@@ -41,7 +43,8 @@ spec:
                   name: lobsters
                   key: database-url
           ports:
-            - containerPort: 3000
+            - name: http
+              containerPort: 3000
               protocol: TCP
           resources:
             requests:
@@ -51,9 +54,9 @@ spec:
               cpu: 0.5
               memory: 200M
       volumes:
-        - name: "tls-certs"
+        - name: tls
           secret:
             secretName: "lobsters.hightowerlabs.com"
-        - name: "nginx-proxy-conf"
+        - name: nginx
           configMap:
-            name: "nginx-proxy-conf"
+            name: nginx

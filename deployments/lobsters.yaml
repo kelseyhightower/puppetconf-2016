@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: lobsters
-          image: kelseyhightower/lobsters:2.0.0
+          image: "kelseyhightower/lobsters:2.0.0"
           env:
             - name: DATABASE_URL
               valueFrom:
@@ -21,7 +21,8 @@ spec:
                   name: lobsters
                   key: database-url
           ports:
-            - containerPort: 3000
+            - name: http
+              containerPort: 3000
               protocol: TCP
           resources:
             requests:
